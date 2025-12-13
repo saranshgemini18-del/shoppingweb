@@ -23,20 +23,23 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   const category = categories.find(c => c.id === product.categoryId);
-  const image = PlaceHolderImages.find((img) => img.id === product.imageId);
+  const placeholderImage = PlaceHolderImages.find((img) => img.id === product.imageId);
   const { addToCart } = useCart();
+
+  const imageUrl = product.imageUrl || placeholderImage?.imageUrl;
+  const imageHint = placeholderImage?.imageHint || 'product image';
 
   return (
     <Card className="flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
       <CardHeader className="p-0">
-        {image && (
+        {imageUrl && (
           <div className="aspect-[4/3] overflow-hidden">
             <Image
-              src={image.imageUrl}
+              src={imageUrl}
               alt={product.name}
               width={600}
               height={450}
-              data-ai-hint={image.imageHint}
+              data-ai-hint={imageHint}
               className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
             />
           </div>

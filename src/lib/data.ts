@@ -1,4 +1,5 @@
 
+
 import type { LucideIcon } from 'lucide-react';
 import { Gem, Home, Shirt, Glasses } from 'lucide-react';
 
@@ -24,6 +25,7 @@ export type Product = {
   categoryId: string;
   imageId: string;
   stock: number;
+  imageUrl?: string;
 };
 
 export const products: Product[] = [
