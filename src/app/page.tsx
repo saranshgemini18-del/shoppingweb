@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -13,22 +14,23 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { users } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/context/auth-context';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    const user = users.find(
-      (u) => u.email === email && u.password === password
-    );
+    const success = login(email, password);
 
-    if (user) {
+    if (success) {
+      const user = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
       const role = user.role.toLowerCase();
       router.push(`/welcome?name=${encodeURIComponent(user.name)}&role=${role}`);
     } else {
@@ -82,6 +84,12 @@ export default function LoginPage() {
             <Button type="submit" className="w-full">
               Login
             </Button>
+             <div className="mt-4 text-center text-sm">
+              Don&apos;t have an account?{' '}
+              <Link href="/signup" className="underline">
+                Create an account
+              </Link>
+            </div>
           </form>
           <Separator className="my-4" />
           <div className="grid gap-4 text-center">

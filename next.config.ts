@@ -30,6 +30,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    serverComponentsExternalPackages: ['genkit', 'genkitx-eval', 'genkitx-dotprompt', '@genkit-ai/google-genai'],
+  },
 };
 
 export default nextConfig;

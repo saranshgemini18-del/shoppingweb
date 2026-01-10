@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -17,6 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useCart } from '@/context/cart-context';
 import { Badge } from './ui/badge';
+import { useAuth } from '@/context/auth-context';
 
 function CartBadge() {
   const { cartItems } = useCart();
@@ -36,11 +38,13 @@ function CartBadge() {
 export function SiteHeader() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const role = searchParams.get('role');
+  const { currentUser, logout, isAuthenticated } = useAuth();
+  
+  const role = searchParams.get('role') || (currentUser?.role.toLowerCase());
   const isAdmin = role === 'admin';
 
   const userAvatar = PlaceHolderImages.find(
-    (img) => img.id === 'customer-avatar'
+    (img) => img.id === currentUser?.avatarId || 'customer-avatar'
   );
   
   const adminAvatar = PlaceHolderImages.find(
@@ -110,13 +114,13 @@ export function SiteHeader() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                   <Avatar className="h-8 w-8">
-                    {isAdmin ? (
-                        adminAvatar && <AvatarImage src={adminAvatar.imageUrl} alt="Admin" data-ai-hint={adminAvatar.imageHint} />
+                    {isAuthenticated ? (
+                        userAvatar && <AvatarImage src={userAvatar.imageUrl} alt={currentUser?.name || 'User'} data-ai-hint={userAvatar.imageHint} />
                     ) : (
-                        userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User" data-ai-hint={userAvatar.imageHint} />
+                        <AvatarFallback><User /></AvatarFallback>
                     )}
                     <AvatarFallback>
-                      <User />
+                      {currentUser?.name.charAt(0) || <User />}
                     </AvatarFallback>
                   </Avatar>
                 </Button>
@@ -125,10 +129,10 @@ export function SiteHeader() {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
-                      {isAdmin ? 'Admin' : 'Guest'}
+                      {isAuthenticated ? currentUser?.name : 'Guest'}
                     </p>
                     <p className="text-xs leading-none text-muted-foreground">
-                      {isAdmin ? 'admin@example.com' : 'guest@example.com'}
+                      {isAuthenticated ? currentUser?.email : 'guest@example.com'}
                     </p>
                   </div>
                 </DropdownMenuLabel>
@@ -142,9 +146,15 @@ export function SiteHeader() {
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/">Logout</Link>
-                </DropdownMenuItem>
+                {isAuthenticated ? (
+                  <DropdownMenuItem onClick={() => logout()}>
+                    Logout
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem asChild>
+                    <Link href="/">Login</Link>
+                  </DropdownMenuItem>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           </nav>

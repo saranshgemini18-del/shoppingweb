@@ -13,9 +13,10 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Bot, MessageSquare, Send, User, Loader2 } from 'lucide-react';
+import { chat } from '@/ai/flows/chat-flow';
 
 type Message = {
-  role: 'user' | 'bot';
+  role: 'user' | 'model';
   content: string;
 };
 
@@ -25,17 +26,6 @@ const quickReplies = [
   'What is your return policy?',
 ];
 
-const quickReplyAnswers: Record<string, string> = {
-  'What are your shipping policies?':
-    'We offer free standard shipping on all orders within India. Orders are typically processed within 2 business days and delivered within 5-7 business days.',
-  'How can I track my order?':
-    'Once your order is shipped, you will receive an email with a tracking number. You can use this number on our shipping partner\'s website or by visiting the "My Orders" section in your account.',
-  'What is your return policy?':
-    'We accept returns within 14 days of delivery for a full refund. Please ensure the items are in their original condition. To initiate a return, please visit the "My Orders" page.',
-};
-
-const defaultBotMessage =
-  'Thank you for your message. A support representative will get back to you shortly.';
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,34 +47,40 @@ export function ChatWidget() {
     if (isOpen && messages.length === 0) {
       setMessages([
         {
-          role: 'bot',
+          role: 'model',
           content:
-            'Namaste! How can I help you explore Bharat Bazaar today?',
+            'Namaste! I am an AI assistant. How can I help you explore Bharat Bazaar today?',
         },
       ]);
     }
   }, [isOpen, messages.length]);
 
-  const handleSendMessage = (messageContent: string) => {
+  const handleSendMessage = async (messageContent: string) => {
     if (!messageContent.trim() || isPending) return;
 
     const userMessage: Message = { role: 'user', content: messageContent };
-    setMessages((prev) => [...prev, userMessage]);
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setIsPending(true);
 
-    // Check for a quick reply answer
-    const botResponse =
-      quickReplyAnswers[messageContent] || defaultBotMessage;
-
-    // Simulate a bot response with a delay
-    setTimeout(() => {
+    try {
+      const response = await chat(newMessages);
       const botMessage: Message = {
-        role: 'bot',
-        content: botResponse,
+        role: 'model',
+        content: response,
       };
       setMessages((prev) => [...prev, botMessage]);
-      setIsPending(false);
-    }, 1000);
+    } catch(e) {
+        console.error(e);
+        const botMessage: Message = {
+            role: 'model',
+            content: 'Sorry, I am having trouble connecting to the server. Please try again later.',
+        };
+        setMessages((prev) => [...prev, botMessage]);
+    } finally {
+        setIsPending(false);
+    }
+
   };
   
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -95,6 +91,7 @@ export function ChatWidget() {
 
   const handleQuickReply = (reply: string) => {
     handleSendMessage(reply);
+    setInput('');
   };
 
   return (
@@ -126,7 +123,7 @@ export function ChatWidget() {
                     message.role === 'user' ? 'justify-end' : ''
                   }`}
                 >
-                  {message.role === 'bot' && (
+                  {message.role === 'model' && (
                     <Avatar className="h-8 w-8">
                       <AvatarFallback>
                         <Bot className="h-5 w-5 text-primary" />

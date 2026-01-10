@@ -3,91 +3,91 @@
     {
       "id": "saree",
       "description": "A woman wearing an elegant handcrafted silk saree.",
-      "imageUrl": "https://images.unsplash.com/flagged/photo-1551854716-8b811be39e7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzaWxrJTIwc2FyZWV8ZW58MHx8fHwxNzYzNzQ3MjE1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1610189012906-4c0aa9b9781e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzaWxrJTIwc2FyZWV8ZW58MHx8fHwxNzY0MzE5NTUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "silk saree"
     },
     {
       "id": "kurta",
       "description": "A stylish embroidered men's kurta.",
-      "imageUrl": "https://images.unsplash.com/photo-1734418038517-ffc3a6a6751f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtZW5zJTIwa3VydGF8ZW58MHx8fHwxNzYzNzg2NTU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1645944692361-721984d57b6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtZW5zJTIwa3VydGF8ZW58MHx8fHwxNzY0NDE3NDA1fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "mens kurta"
     },
     {
       "id": "earrings",
       "description": "A pair of intricate gold jhumka earrings.",
-      "imageUrl": "https://images.unsplash.com/photo-1758995115555-766abbd9a491?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z29sZCUyMGVhcnJpbmdzfGVufDB8fHx8MTc2MzgyMjg0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1638854254875-a2416fe0fec2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnb2xkJTIwZWFycmluZ3N8ZW58MHx8fHwxNzY0MzMzODYxfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "gold earrings"
     },
     {
       "id": "necklace",
       "description": "A traditional Kundan necklace set.",
-      "imageUrl": "https://images.unsplash.com/photo-1707222611620-41c17060c4de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBuZWNrbGFjZXxlbnwwfHx8fDE3NjM4MjI4NDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1758995115518-26f90aa61b97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxpbmRpYW4lMjBuZWNrbGFjZXxlbnwwfHx8fDE3NjQ0MTc0MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "indian necklace"
     },
     {
       "id": "vase",
       "description": "A set of hand-painted terracotta vases.",
-      "imageUrl": "https://images.unsplash.com/photo-1604464543433-149fe779b779?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0ZXJyYWNvdHRhJTIwdmFzZXxlbnwwfHx8fDE3NjM3NjUzNDh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1621522640156-7044c0dc8731?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx0ZXJyYWNvdHRhJTIwdmFzZXxlbnwwfHx8fDE3NjQzMDk1NzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "terracotta vase"
     },
     {
       "id": "wall-hanging",
       "description": "A colorful Madhubani art wall hanging.",
-      "imageUrl": "https://images.unsplash.com/photo-1714248375969-a48cdc603a3f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxpbmRpYW4lMjBhcnR8ZW58MHx8fHwxNzYzNzExMzkxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1524228529766-4d7fe5dc55ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxpbmRpYW4lMjBhcnR8ZW58MHx8fHwxNzY0MzEyMjcwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "indian art"
     },
     {
       "id": "admin-avatar-1",
       "description": "Admin user avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1609505848912-b7c3b8b4beda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc2Mzc0NTI0MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1557053908-4793c484d06f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc2NDM3NDYyMXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "woman portrait"
     },
     {
       "id": "customer-avatar",
       "description": "Customer user avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjM4MDkyNTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1594672830234-ba4cfe1202dc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bWFuJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzY0MzU5MDQ4fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "man portrait"
     },
     {
       "id": "bed-sheet",
       "description": "A hand block-printed cotton bed sheet from Jaipur.",
-      "imageUrl": "https://images.unsplash.com/photo-1602201880410-11d3b767a3c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcmludGVkJTIwYmVkc2hlZXR8ZW58MHx8fHwxNzYzODIzODc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1653479889314-33162cc24287?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHJpbnRlZCUyMGJlZHNoZWV0fGVufDB8fHx8MTc2NDQxNzQwNXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "printed bedsheet"
     },
     {
       "id": "shawl",
       "description": "A luxurious and warm Pashmina shawl from Kashmir.",
-      "imageUrl": "https://images.unsplash.com/photo-1520012410130-4d5ad71c9b66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwYXNobWluYSUyMHNoYXdsfGVufDB8fHx8MTc2Mzc0NzIxNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1576073383268-a8aae73f33bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwYXNobWluYSUyMHNoYXdsfGVufDB8fHx8MTc2NDQxNzQwNXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "pashmina shawl"
     },
     {
       "id": "anklets",
       "description": "A pair of beautifully crafted silver-plated anklets.",
-      "imageUrl": "https://images.unsplash.com/photo-1664798901489-b256769c5800?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzaWx2ZXIlMjBhbmtsZXRzfGVufDB8fHx8MTc2MzgyMzg3NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1522143586700-376bbcc7df32?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzaWx2ZXIlMjBhbmtsZXRzfGVufDB8fHx8MTc2NDQxNzQwNXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "silver anklets"
     },
     {
       "id": "diya-lamp",
       "description": "An ornate brass Diya (oil lamp) with a peacock design.",
-      "imageUrl": "https://images.unsplash.com/photo-1627331044029-41208d6e4fe1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxicmFzcyUyMGxhbXB8ZW58MHx8fHwxNzYzODIzODc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1627331044029-41208d6e4fe1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxicmFzcyUyMGxhbXB8ZW58MHx8fHwxNzY0NDE3NDA1fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "brass lamp"
     },
     {
       "id": "mojari-shoes",
       "description": "Handcrafted traditional Indian leather shoes (Mojari) for men.",
-      "imageUrl": "https://images.unsplash.com/photo-1613740104907-d537a85e1274?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxpbmRpYW4lMjBzaG9lc3xlbnwwfHx8fDE3NjM4MjM4NzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1645342816597-fd8aa2c17de7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBzaG9lc3xlbnwwfHx8fDE3NjQ0MTc0MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "indian shoes"
     },
     {
       "id": "bangle-set",
       "description": "A vibrant set of Meenakari (enamel work) bangles.",
-      "imageUrl": "https://images.unsplash.com/photo-1656841646316-4bb6aab42b51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxpbmRpYW4lMjBiYW5nbGVzfGVufDB8fHx8MTc2MzgyMzg3NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1709456533985-254ebb7b00db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxpbmRpYW4lMjBiYW5nbGVzfGVufDB8fHx8MTc2NDQxNzQwNXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "indian bangles"
     },
     {
       "id": "spectacles",
       "description": "A person wearing classic aviator spectacles.",
-      "imageUrl": "https://images.unsplash.com/photo-1631724197896-dfd934972a1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YXZpYXRvciUyMGdsYXNzZXN8ZW58MHx8fHwxNzYzODIzODc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1625563206582-f2986b101ea9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhdmlhdG9yJTIwZ2xhc3Nlc3xlbnwwfHx8fDE3NjQ0MTc0MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "aviator glasses"
     }
   ]

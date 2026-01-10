@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -14,10 +15,13 @@ import { cn } from '@/lib/utils';
 import { ShoppingCart } from 'lucide-react';
 import { useOrders } from '@/context/order-context';
 import { format } from 'date-fns';
+import { useAuth } from '@/context/auth-context';
 
 export default function MyOrdersPage() {
   const { orders, isLoading } = useOrders();
-  const myOrders = orders.filter(o => o.customerEmail === 'aarav.p@example.com');
+  const { currentUser } = useAuth();
+  
+  const myOrders = currentUser ? orders.filter(o => o.customerEmail === currentUser.email) : [];
 
   return (
     <div className="container mx-auto max-w-4xl py-12 px-4 sm:px-6 lg:px-8">
@@ -53,7 +57,7 @@ export default function MyOrdersPage() {
                 {myOrders.map((order) => (
                   <TableRow key={order.id}>
                     <TableCell className="font-medium truncate" style={{maxWidth: '100px'}}>
-                      {order.id}
+                      {order.id.slice(0,8)}
                     </TableCell>
                     <TableCell>{format(new Date(order.date), 'yyyy-MM-dd')}</TableCell>
                     <TableCell>₹{order.total.toFixed(2)}</TableCell>

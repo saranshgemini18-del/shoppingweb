@@ -26,7 +26,7 @@ function OrderConfirmationContent() {
             </p>
             {orderId && (
               <p className="text-sm text-muted-foreground">
-                  Order #{orderId.toUpperCase()}
+                  Order #{orderId.slice(0,8).toUpperCase()}
               </p>
             )}
             <div className="flex justify-center gap-4 pt-4">

@@ -30,14 +30,15 @@ const getInitialOrders = (): OrderType[] => {
     }
     try {
         const item = window.localStorage.getItem('orders');
-        // If no item in localStorage, initialize with mock data
+        // If no item in localStorage, initialize with an empty array
         if (item === null) {
-            window.localStorage.setItem('orders', JSON.stringify(mockOrders));
-            return mockOrders;
+            window.localStorage.setItem('orders', JSON.stringify([]));
+            return [];
         }
-        return item ? JSON.parse(item) : mockOrders;
+        return item ? JSON.parse(item) : [];
     } catch (error) {
         console.warn(`Error reading localStorage key “orders”:`, error);
+        // Fallback to mock data only in case of an error, not for an empty slate.
         return mockOrders;
     }
 };

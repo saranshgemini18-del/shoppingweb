@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, Suspense } from 'react';
@@ -18,7 +19,7 @@ function WelcomeContent() {
       } else {
         router.push('/dashboard');
       }
-    }, 2500); // 2.5 seconds
+    }, 1500); // 1.5 seconds
 
     return () => clearTimeout(timer);
   }, [router, role]);
@@ -28,7 +29,7 @@ function WelcomeContent() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
         className="flex flex-col items-center"
       >
         <Sparkles className="h-16 w-16 text-primary mb-4" />

@@ -156,13 +156,14 @@ export type User = {
   role: 'Admin' | 'Customer';
   avatarId: string;
   registeredAt: string;
+  isVerified?: boolean;
 };
 
 export const users: User[] = [
-    { id: 'user-1', name: 'Admin User', email: 'admin@example.com', password: 'password', role: 'Admin', avatarId: 'admin-avatar-1', registeredAt: '2023-01-15' },
-    { id: 'user-2', name: 'Customer User', email: 'customer@example.com', password: 'password', role: 'Customer', avatarId: 'customer-avatar', registeredAt: '2023-02-20' },
-    { id: 'user-3', name: 'Aarav Patel', email: 'aarav.p@example.com', role: 'Customer', avatarId: 'customer-avatar', registeredAt: '2023-03-05' },
-    { id: 'user-4', name: 'Saanvi Gupta', email: 'saanvi.g@example.com', role: 'Customer', avatarId: 'admin-avatar-1', registeredAt: '2023-04-10' },
+    { id: 'user-1', name: 'Admin User', email: 'admin@example.com', password: 'password', role: 'Admin', avatarId: 'admin-avatar-1', registeredAt: '2023-01-15', isVerified: true },
+    { id: 'user-2', name: 'Customer User', email: 'customer@example.com', password: 'password', role: 'Customer', avatarId: 'customer-avatar', registeredAt: '2023-02-20', isVerified: true },
+    { id: 'user-3', name: 'Aarav Patel', email: 'aarav.p@example.com', role: 'Customer', avatarId: 'customer-avatar', registeredAt: '2023-03-05', isVerified: true },
+    { id: 'user-4', name: 'Saanvi Gupta', email: 'saanvi.g@example.com', role: 'Customer', avatarId: 'admin-avatar-1', registeredAt: '2023-04-10', isVerified: true },
 ];
 
 type OrderItem = {
@@ -170,6 +171,7 @@ type OrderItem = {
   productName: string;
   quantity: number;
   price: number;
+  imageId: string;
 };
 
 export type ShippingAddress = {
@@ -199,7 +201,7 @@ export const orders: Order[] = [
         date: '2024-05-20', 
         total: 18750, 
         status: 'Delivered', 
-        items: [{ productId: 'prod-1', productName: 'Handcrafted Silk Saree', quantity: 1, price: 12500 }, { productId: 'prod-2', productName: 'Embroidered Men\'s Kurta', quantity: 1, price: 6250 }],
+        items: [{ productId: 'prod-1', productName: 'Handcrafted Silk Saree', quantity: 1, price: 12500, imageId: 'saree' }, { productId: 'prod-2', productName: 'Embroidered Men\'s Kurta', quantity: 1, price: 6250, imageId: 'kurta' }],
         shippingAddress: { address: '123 Palace Road', city: 'Jaipur', state: 'Rajasthan', zip: '302001' },
         paymentMethod: '**** **** **** 1234'
     },
@@ -210,7 +212,7 @@ export const orders: Order[] = [
         date: '2024-05-22', 
         total: 8000, 
         status: 'Shipped', 
-        items: [{productId: 'prod-3', productName: 'Gold Jhumka Earrings', quantity: 1, price: 8000}],
+        items: [{productId: 'prod-3', productName: 'Gold Jhumka Earrings', quantity: 1, price: 8000, imageId: 'earrings'}],
         shippingAddress: { address: '456 Lake View Apt', city: 'Udaipur', state: 'Rajasthan', zip: '313001' },
         paymentMethod: '**** **** **** 5678'
     },
@@ -221,7 +223,7 @@ export const orders: Order[] = [
         date: '2024-05-28', 
         total: 5000, 
         status: 'Pending', 
-        items: [{productId: 'prod-6', productName: 'Madhubani Art Wall Hanging', quantity: 1, price: 5000}],
+        items: [{productId: 'prod-6', productName: 'Madhubani Art Wall Hanging', quantity: 1, price: 5000, imageId: 'wall-hanging'}],
         shippingAddress: { address: '123 Palace Road', city: 'Jaipur', state: 'Rajasthan', zip: '302001' },
         paymentMethod: '**** **** **** 1234'
     },
@@ -232,7 +234,7 @@ export const orders: Order[] = [
         date: '2024-06-01', 
         total: 3750, 
         status: 'Pending', 
-        items: [{productId: 'prod-5', productName: 'Hand-Painted Terracotta Vases', quantity: 1, price: 3750}],
+        items: [{productId: 'prod-5', productName: 'Hand-Painted Terracotta Vases', quantity: 1, price: 3750, imageId: 'vase'}],
         shippingAddress: { address: '456 Lake View Apt', city: 'Udaipur', state: 'Rajasthan', zip: '313001' },
         paymentMethod: '**** **** **** 5678'
     },
@@ -243,7 +245,7 @@ export const orders: Order[] = [
         date: '2024-06-02', 
         total: 12500, 
         status: 'Cancelled', 
-        items: [{productId: 'prod-1', productName: 'Handcrafted Silk Saree', quantity: 1, price: 12500}],
+        items: [{productId: 'prod-1', productName: 'Handcrafted Silk Saree', quantity: 1, price: 12500, imageId: 'saree'}],
         shippingAddress: { address: '789 Desert Trail', city: 'Jodhpur', state: 'Rajasthan', zip: '342001' },
         paymentMethod: '**** **** **** 9012'
     },
