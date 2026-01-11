@@ -3,15 +3,14 @@ import { ProductForm } from '@/components/admin/product-form';
 import type { Product } from '@/lib/data';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
-import { useProducts } from '@/context/product-context';
+import { addProduct } from '@/lib/actions';
 
 export default function NewProductPage() {
     const router = useRouter();
     const { toast } = useToast();
-    const { addProduct } = useProducts();
 
-    const handleSave = (data: Omit<Product, 'id'>) => {
-        addProduct(data);
+    const handleSave = async (data: Omit<Product, 'id'>) => {
+        await addProduct(data);
         toast({
             title: "Product Created",
             description: `${data.name} has been successfully added.`,

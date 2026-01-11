@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -16,12 +17,11 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { CreditCard, ShoppingCart, Truck, User } from 'lucide-react';
-import { useCart } from '@/context/cart-context';
 import Link from 'next/link';
-import { useOrders } from '@/context/order-context';
 import { default as NextImage } from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/auth-context';
+import { getCartItems, placeOrder, CartItem } from '@/lib/actions';
 
 function GuestCheckoutPrompt() {
     const router = useRouter();
@@ -43,10 +43,10 @@ function GuestCheckoutPrompt() {
 
 
 export default function CheckoutPage() {
-  const { cartItems, clearCart } = useCart();
-  const { addOrder } = useOrders();
   const router = useRouter();
   const { isAuthenticated, currentUser } = useAuth();
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -56,6 +56,18 @@ export default function CheckoutPage() {
   const [zip, setZip] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      if (isAuthenticated) {
+        setIsLoading(true);
+        const items = await getCartItems();
+        setCartItems(items);
+        setIsLoading(false);
+      }
+    };
+    fetchCart();
+  }, [isAuthenticated]);
 
   useEffect(() => {
     const validateForm = () => {
@@ -77,38 +89,31 @@ export default function CheckoutPage() {
   const shipping = subtotal > 0 ? 500.0 : 0;
   const total = subtotal + shipping;
   
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     if(cartItems.length > 0 && currentUser && isFormValid) {
-      const newOrderData = {
-          customerName: `${firstName} ${lastName}`,
-          customerEmail: currentUser.email,
-          date: new Date().toISOString(),
-          total: total,
-          status: 'Pending' as const,
-          items: cartItems.map(item => ({
-            productId: item.product.id,
-            productName: item.product.name,
-            quantity: item.quantity,
-            price: item.product.price,
-            imageId: item.product.imageId
-          })),
-          shippingAddress: {
-            address,
-            city,
-            state,
-            zip
-          },
-          paymentMethod: cardNumber
+      const shippingAddress = {
+          address,
+          city,
+          state,
+          zip
       };
-
-      const newOrder = addOrder(newOrderData);
+      
+      const newOrder = await placeOrder({
+        customerName: `${firstName} ${lastName}`,
+        customerEmail: currentUser.email,
+        shippingAddress: shippingAddress,
+        paymentMethod: cardNumber
+      });
       
       if (newOrder) {
-        clearCart();
         router.push(`/dashboard/order-confirmation?orderId=${newOrder.id}`);
       }
     }
   };
+
+  if (isLoading && isAuthenticated) {
+    return <div>Loading checkout...</div>;
+  }
 
   return (
     <div className="container mx-auto max-w-6xl py-12 px-4 sm:px-6 lg:px-8">

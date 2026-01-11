@@ -11,20 +11,27 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { useOrders } from '@/context/order-context';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { getOrders } from '@/lib/actions';
+import type { Order } from '@/lib/data';
 
 
 export default function AdminOrdersPage() {
-  const { orders, isLoading } = useOrders();
-  const [isClient, setIsClient] = useState(false);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    setIsClient(true);
+    const fetchOrders = async () => {
+      setIsLoading(true);
+      const fetchedOrders = await getOrders();
+      setOrders(fetchedOrders);
+      setIsLoading(false);
+    };
+    fetchOrders();
   }, []);
 
   const getAdminLink = (path: string) => `${path}?role=admin`;
@@ -35,7 +42,7 @@ export default function AdminOrdersPage() {
         <CardTitle className="font-headline text-2xl">All Customer Orders</CardTitle>
       </CardHeader>
       <CardContent>
-        {isLoading || !isClient ? <p>Loading orders...</p> : (
+        {isLoading ? <p>Loading orders...</p> : (
           orders.length > 0 ? (
             <Table>
               <TableHeader>

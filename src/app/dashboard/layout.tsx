@@ -1,9 +1,6 @@
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { ChatWidget } from '@/components/chat-widget';
-import { CartProvider } from '@/context/cart-context';
-import { OrderProvider } from '@/context/order-context';
-import { ProductProvider } from '@/context/product-context';
 import { Suspense } from 'react';
 
 function DashboardLayoutContent({
@@ -27,14 +24,8 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ProductProvider>
-      <OrderProvider>
-        <CartProvider>
-          <Suspense fallback={<div>Loading...</div>}>
-            <DashboardLayoutContent>{children}</DashboardLayoutContent>
-          </Suspense>
-        </CartProvider>
-      </OrderProvider>
-    </ProductProvider>
+    <Suspense fallback={<div>Loading...</div>}>
+      <DashboardLayoutContent>{children}</DashboardLayoutContent>
+    </Suspense>
   );
 }

@@ -1,13 +1,13 @@
 
+
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { ProductCard } from '@/components/product-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { categories, type Category } from '@/lib/data';
+import { categories, type Category, type Product } from '@/lib/data';
 import { Gem, Home, Shirt, Glasses, SearchIcon, Camera } from 'lucide-react';
-import { useProducts } from '@/context/product-context';
 import {
   Dialog,
   DialogContent,
@@ -16,6 +16,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { VisualSearch } from '@/components/visual-search';
+import { getProducts } from '@/lib/actions';
 
 const iconMap = {
   Shirt,
@@ -25,10 +26,21 @@ const iconMap = {
 };
 
 export default function CatalogPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isVisualSearchOpen, setIsVisualSearchOpen] = useState(false);
-  const { products } = useProducts();
+  
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+      setIsLoading(false);
+    };
+    fetchProducts();
+  }, []);
 
   const filteredProducts = useMemo(() => {
     let filtered = products;
@@ -115,17 +127,23 @@ export default function CatalogPage() {
           })}
         </div>
       </div>
+      {isLoading ? (
+        <div className="text-center col-span-full py-12">
+          <p className="text-muted-foreground">Loading products...</p>
+        </div>
+       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-         {filteredProducts.length === 0 && !searchTerm && (
+      )}
+         {filteredProducts.length === 0 && !searchTerm && !isLoading && (
           <div className="text-center col-span-full py-12">
             <p className="text-muted-foreground">No products found in this category.</p>
           </div>
         )}
-        {filteredProducts.length === 0 && searchTerm && (
+        {filteredProducts.length === 0 && searchTerm && !isLoading && (
           <div className="text-center col-span-full py-12">
             <p className="text-muted-foreground">No products found for &quot;{searchTerm}&quot;.</p>
           </div>

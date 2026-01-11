@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ShoppingCart, Sparkles, User, Shield } from 'lucide-react';
 import { Button } from './ui/button';
@@ -16,21 +17,33 @@ import {
 } from './ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { useCart } from '@/context/cart-context';
 import { Badge } from './ui/badge';
 import { useAuth } from '@/context/auth-context';
+import { getCartItemCount } from '@/lib/actions';
 
 function CartBadge() {
-  const { cartItems } = useCart();
-  const totalCartItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const { isAuthenticated } = useAuth();
+  const [itemCount, setItemCount] = useState(0);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  if (totalCartItems <= 0) {
+  useEffect(() => {
+    const fetchItemCount = async () => {
+      if (isAuthenticated) {
+        const count = await getCartItemCount();
+        setItemCount(count);
+      }
+    };
+    fetchItemCount();
+  }, [isAuthenticated, pathname, searchParams]);
+
+  if (itemCount <= 0 || !isAuthenticated) {
     return null;
   }
 
   return (
      <Badge variant="destructive" className="absolute -right-2 -top-2 h-5 w-5 justify-center rounded-full p-0">
-        {totalCartItems}
+        {itemCount}
       </Badge>
   )
 }

@@ -19,21 +19,31 @@ import {
   Loader2,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useProducts } from '@/context/product-context';
-import { useOrders } from '@/context/order-context';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
+import { getOrders, getProducts } from '@/lib/actions';
+import type { Order, Product } from '@/lib/data';
 
 export default function AdminDashboardPage() {
   const router = useRouter();
-  const { orders, isLoading: isLoadingOrders } = useOrders();
-  const { products, isLoading: isLoadingProducts } = useProducts();
-  const [isClient, setIsClient] = useState(false);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsClient(true);
+    const fetchData = async () => {
+      setIsLoading(true);
+      const [fetchedOrders, fetchedProducts] = await Promise.all([
+        getOrders(),
+        getProducts(),
+      ]);
+      setOrders(fetchedOrders);
+      setProducts(fetchedProducts);
+      setIsLoading(false);
+    };
+    fetchData();
   }, []);
 
   const totalProducts = products.length;
@@ -45,8 +55,6 @@ export default function AdminDashboardPage() {
     .slice(0, 5);
 
   const getAdminLink = (path: string) => `${path}?role=admin`;
-
-  const isLoading = isLoadingProducts || isLoadingOrders || !isClient;
 
   return (
     <div className="space-y-8">

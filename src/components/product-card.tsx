@@ -15,19 +15,49 @@ import {
 import { Button } from './ui/button';
 import { ShoppingCart } from 'lucide-react';
 import { Badge } from './ui/badge';
-import { useCart } from '@/context/cart-context';
+import { useToast } from '@/hooks/use-toast';
+import { addToCart } from '@/lib/actions';
+import { useAuth } from '@/context/auth-context';
+import { useRouter } from 'next/navigation';
 
 type ProductCardProps = {
   product: Product;
 };
 
 export function ProductCard({ product }: ProductCardProps) {
+  const { toast } = useToast();
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
   const category = categories.find(c => c.id === product.categoryId);
   const placeholderImage = PlaceHolderImages.find((img) => img.id === product.imageId);
-  const { addToCart } = useCart();
 
   const imageUrl = product.imageUrl || placeholderImage?.imageUrl;
   const imageHint = placeholderImage?.imageHint || 'product image';
+
+  const handleAddToCart = async () => {
+    if (!isAuthenticated) {
+      toast({
+        variant: 'destructive',
+        title: 'Please Log In',
+        description: 'You must be logged in to add items to the cart.',
+      });
+      router.push('/');
+      return;
+    }
+    try {
+      await addToCart(product.id);
+      toast({
+        title: 'Added to cart',
+        description: `${product.name} has been added to your cart.`,
+      });
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Could not add item to cart.',
+      });
+    }
+  }
 
   return (
     <Card className="flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
@@ -60,7 +90,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <p className="text-lg font-semibold text-primary">
           ₹{product.price.toFixed(2)}
         </p>
-        <Button onClick={() => addToCart(product)}>
+        <Button onClick={handleAddToCart}>
           <ShoppingCart className="mr-2 h-4 w-4" />
           Add to Cart
         </Button>

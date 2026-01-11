@@ -12,22 +12,22 @@ import {
 import Link from 'next/link';
 import { Home, Package, ShoppingCart } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { ProductProvider } from '@/context/product-context';
-import { OrderProvider } from '@/context/order-context';
+import { useAuth } from '@/context/auth-context';
 
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
+  const { currentUser, isLoading } = useAuth();
   const searchParams = useSearchParams();
-  const isAdmin = searchParams.get('role') === 'admin';
+  const role = searchParams.get('role') || currentUser?.role?.toLowerCase();
 
   useEffect(() => {
-    if (!isAdmin) {
-      router.push('/');
+    if (!isLoading && (!currentUser || role !== 'admin')) {
+      router.push('/dashboard');
     }
-  }, [isAdmin, router]);
+  }, [isLoading, currentUser, role, router]);
 
-  if (!isAdmin) {
+  if (isLoading || !currentUser || role !== 'admin') {
     return <div>Loading access...</div>;
   }
   
@@ -76,12 +76,8 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ProductProvider>
-      <OrderProvider>
-        <Suspense fallback={<div>Loading...</div>}>
-          <AdminLayoutContent>{children}</AdminLayoutContent>
-        </Suspense>
-      </OrderProvider>
-    </ProductProvider>
+    <Suspense fallback={<div>Loading...</div>}>
+      <AdminLayoutContent>{children}</AdminLayoutContent>
+    </Suspense>
   );
 }

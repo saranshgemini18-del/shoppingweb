@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState, useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -13,15 +14,32 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { ShoppingCart } from 'lucide-react';
-import { useOrders } from '@/context/order-context';
 import { format } from 'date-fns';
 import { useAuth } from '@/context/auth-context';
+import { getMyOrders } from '@/lib/actions';
+import type { Order } from '@/lib/data';
 
 export default function MyOrdersPage() {
-  const { orders, isLoading } = useOrders();
-  const { currentUser } = useAuth();
-  
-  const myOrders = currentUser ? orders.filter(o => o.customerEmail === currentUser.email) : [];
+  const { currentUser, isLoading: isAuthLoading } = useAuth();
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      if (currentUser) {
+        setIsLoading(true);
+        const myOrders = await getMyOrders();
+        setOrders(myOrders);
+        setIsLoading(false);
+      }
+    };
+
+    if (!isAuthLoading) {
+      fetchOrders();
+    }
+  }, [currentUser, isAuthLoading]);
+
+  const pageIsLoading = isLoading || isAuthLoading;
 
   return (
     <div className="container mx-auto max-w-4xl py-12 px-4 sm:px-6 lg:px-8">
@@ -41,8 +59,8 @@ export default function MyOrdersPage() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {isLoading && <p>Loading orders...</p>}
-          {!isLoading && myOrders && myOrders.length > 0 ? (
+          {pageIsLoading && <p>Loading orders...</p>}
+          {!pageIsLoading && orders && orders.length > 0 ? (
             <Table>
               <TableHeader>
                 <TableRow>
@@ -54,7 +72,7 @@ export default function MyOrdersPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {myOrders.map((order) => (
+                {orders.map((order) => (
                   <TableRow key={order.id}>
                     <TableCell className="font-medium truncate" style={{maxWidth: '100px'}}>
                       {order.id.slice(0,8)}
@@ -83,7 +101,7 @@ export default function MyOrdersPage() {
               </TableBody>
             </Table>
           ) : (
-            !isLoading && <div className="text-center py-8">
+            !pageIsLoading && <div className="text-center py-8">
                 <p className="text-muted-foreground">You have not placed any orders yet.</p>
             </div>
           )}

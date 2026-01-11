@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -11,8 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { PlusCircle, MoreHorizontal } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { categories } from '@/lib/data';
-import { useProducts } from '@/context/product-context';
+import { categories, Product } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import {
   DropdownMenu,
@@ -20,17 +20,30 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { getProducts, deleteProduct } from '@/lib/actions';
 
 export default function AdminProductsPage() {
   const router = useRouter();
-  const { products, deleteProduct, isLoading } = useProducts();
   const { toast } = useToast();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+      setIsLoading(false);
+    };
+    fetchProducts();
+  }, []);
 
   const getAdminLink = (path: string) => `${path}?role=admin`;
 
-  const handleDelete = (productId: string, productName: string) => {
+  const handleDelete = async (productId: string, productName: string) => {
     if (confirm(`Are you sure you want to delete "${productName}"?`)) {
-      deleteProduct(productId);
+      await deleteProduct(productId);
+      setProducts(prev => prev.filter(p => p.id !== productId));
       toast({
         title: 'Product Deleted',
         description: `"${productName}" has been deleted.`,

@@ -3,7 +3,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useOrders } from '@/context/order-context';
 import {
   Card,
   CardContent,
@@ -35,6 +34,7 @@ import { cn } from '@/lib/utils';
 import type { Order } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, CreditCard, Home } from 'lucide-react';
+import { getOrderById, updateOrderStatus } from '@/lib/actions';
 
 const orderStatuses: Order['status'][] = [
   'Pending',
@@ -47,17 +47,23 @@ export default function OrderDetailsPage() {
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
-  const { getOrderById, updateOrderStatus, isLoading } = useOrders();
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
-  const [isClient, setIsClient] = useState(false);
+  const [order, setOrder] = useState<Order | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    const fetchOrder = async () => {
+      setIsLoading(true);
+      const fetchedOrder = await getOrderById(id);
+      if (fetchedOrder) {
+        setOrder(fetchedOrder);
+      }
+      setIsLoading(false);
+    };
+    fetchOrder();
+  }, [id]);
 
-  const order = getOrderById(id);
-
-  if (isLoading || !isClient) {
+  if (isLoading) {
     return <div>Loading order details...</div>;
   }
 
@@ -65,9 +71,10 @@ export default function OrderDetailsPage() {
     return <div>Order not found.</div>;
   }
   
-  const handleUpdateStatus = (newStatus: Order['status']) => {
+  const handleUpdateStatus = async (newStatus: Order['status']) => {
     if(newStatus) {
-      updateOrderStatus(order.id, newStatus);
+      await updateOrderStatus(order.id, newStatus);
+      setOrder(prev => prev ? {...prev, status: newStatus} : null);
       toast({
         title: "Order Status Updated",
         description: `Order #${order.id.slice(0,8)} has been updated to "${newStatus}".`,

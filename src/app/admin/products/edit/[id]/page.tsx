@@ -3,18 +3,27 @@ import { ProductForm } from '@/components/admin/product-form';
 import type { Product } from '@/lib/data';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
-import { useProducts } from '@/context/product-context';
+import { useEffect, useState } from 'react';
+import { getProductById, updateProduct } from '@/lib/actions';
 
 export default function EditProductPage({ params }: { params: { id: string } }) {
     const router = useRouter();
     const { toast } = useToast();
     const { id } = params;
-    const { getProductById, updateProduct } = useProducts();
+    const [product, setProduct] = useState<Product | null>(null);
 
-    const product = getProductById(id);
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const p = await getProductById(id);
+            if (p) {
+                setProduct(p);
+            }
+        };
+        fetchProduct();
+    }, [id]);
 
-    const handleSave = (data: Omit<Product, 'id'>) => {
-        updateProduct({ id, ...data });
+    const handleSave = async (data: Omit<Product, 'id'>) => {
+        await updateProduct({ id, ...data });
         toast({
             title: "Product Updated",
             description: `${data.name} has been successfully updated.`,
@@ -23,7 +32,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
     }
     
     if (!product) {
-        return <div>Product not found.</div>
+        return <div>Loading product...</div>
     }
 
     return (
